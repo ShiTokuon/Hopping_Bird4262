@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
         initialPlayerDistance = transform.position.y - playerTransform.transform.position.y;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isShaking)
             return;
