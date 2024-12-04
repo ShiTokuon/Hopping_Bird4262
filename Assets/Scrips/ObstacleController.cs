@@ -107,13 +107,13 @@ public class ObstacleController : MonoBehaviour
                 {
                     float addedDistance = (firstRightObPosition + maxLengthMove) - currentRightObXPosition;
 
-                    Vector3 startPosLeftOb = leftOb.transform.position;                    
+                    Vector3 startPosLeftOb = leftOb.transform.position;
                     Vector3 endPosLeftOb = leftOb.transform.position + new Vector3(-addedDistance, 0, 0);
-     
+
 
                     Vector3 startPosRightOb = rightOb.transform.position;
                     Vector3 endPosRightOb = rightOb.transform.position + new Vector3(addedDistance, 0, 0);
-         
+
 
                     float t = 0;
                     while (t < GameManager.Instance.minObstacleSpeedFactor / 2)
@@ -131,7 +131,7 @@ public class ObstacleController : MonoBehaviour
                 else
                 {
                     yield break;
-                }               
+                }
             }
             yield return null;
         }

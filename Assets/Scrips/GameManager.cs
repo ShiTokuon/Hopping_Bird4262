@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour
     private GameState _gameState = GameState.Prepare;
 
     public static int GameCount
-    { 
-        get { return _gameCount; } 
-        private set { _gameCount = value; } 
+    {
+        get { return _gameCount; }
+        private set { _gameCount = value; }
     }
 
     private static int _gameCount = 0;
@@ -49,42 +49,46 @@ public class GameManager : MonoBehaviour
     [Header("Set the target frame rate for this game")]
     public int targetFrameRate = 60;
 
+    // UIマネージャー
     [Header("Gameplay Preferences")]
-    //public UIManager uIManager;
     public GameObject parentPlayer;
-    public GameObject theGround;
+    public GameObject Ground;
     [Header("Obstacles")]
     public GameObject normalObstacle;
 
-    [Header("Gameplay Config")]   
+    // ゲーム開始時に生成する障害物の数
+    [Header("Gameplay Config")]
     public int initialObstacle = 3;
-    //How many obstacle you create when the game start
+    // 障害物間のスペース
     public int space = 7;
-    //Space between 2 obstacle
 
-    /*when the score higher than this value, 
-    in this case is 5, that mean player jump over 5 obstacle, 
-    the first obstacle will be destroyed (the obstacle you create for the first time) 
-    and the ground will be moved to the position of the obstacle that you destroyed. 
-    After that, this value will automatically counting. */
+    // 障害物破棄カウント
     public int obstacleCounter = 4;
 
+    // 障害物の最大揺れ範囲
     public float maxObstacleFluctuationRange = 4;
-    //Max moving flutuation range of obstacle
+
+    // 障害物の最小揺れ範囲
     public float minObstacleFluctuationRange = 3;
-    //Min moving flutuation range of obstacle
+
+    // スコアの値で障害物の速度を減少
     public int scoreToUpdateValue = 10;
-    //When you reached this score, onstacle speed will be decrease
+
     public float decreaseObstacleSpeedValue = 0.05f;
-    //Obstacle speed will be minus by this value
+
+    // 障害物の最小速度係数
     public float minObstacleSpeedFactor = 1f;
-    // Min obstacle speed factor
+
+    // 障害物の最小速度
     public float maxObstacleSpeedFactor = 1.5f;
-    //Max obstacle speed factor
+
+    // 障害物の最大速度係数
     public float minimumMinObstacleSpeedFactor = 0.4f;
-    //Limited of min obstacle speed factor
+
+    // 最小速度の下限
     public float minimumMaxObstacleSpeedFactor = 0.7f;
-    //Limited of max ofstacle speed factor
+
+    // 最大速度の下限
     [Range(0f, 1f)]
     public float goldFrequecy;
 
@@ -99,12 +103,12 @@ public class GameManager : MonoBehaviour
 
     void OnEnable()
     {
-        //PlayerController.PlayerDied += PlayerController_PlayerDied;
+        PlayerController.PlayerDied += PlayerController_PlayerDied;
     }
 
     void OnDisable()
     {
-        //PlayerController.PlayerDied -= PlayerController_PlayerDied;
+        PlayerController.PlayerDied -= PlayerController_PlayerDied;
     }
 
     void Awake()
@@ -142,7 +146,7 @@ public class GameManager : MonoBehaviour
         RandomObstacleType();//Random obstacle's type
 
         //Create the first obstacle and add to list
-        Vector3 firstObstaclePos = theGround.transform.position + new Vector3(0, 13f, 0);
+        Vector3 firstObstaclePos = Ground.transform.position + new Vector3(0, 13f, 0);
         currentObstacle = Instantiate(obstaclePrefab, firstObstaclePos, Quaternion.identity) as GameObject;
         currentObstacle.GetComponent<ObstacleController>().fluctuationRange = Random.Range(minObstacleFluctuationRange, maxObstacleFluctuationRange);
         currentObstacle.GetComponent<ObstacleController>().movingSpeed = Random.Range(minObstacleSpeedFactor, maxObstacleSpeedFactor);
@@ -158,7 +162,7 @@ public class GameManager : MonoBehaviour
         {
             CreateObstacle();
         }
-            
+
         StartCoroutine(GenerateObstacle());
     }
 
@@ -272,7 +276,7 @@ public class GameManager : MonoBehaviour
     void RandomObstacleType()
     {
 
-            obstaclePrefab = normalObstacle;
-        
+        obstaclePrefab = normalObstacle;
+
     }
 }

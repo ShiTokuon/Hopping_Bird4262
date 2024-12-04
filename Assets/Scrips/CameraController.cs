@@ -6,7 +6,6 @@ public class CameraController : MonoBehaviour
     public PlayerController playerController;
     public GameObject Ground;
     public float followUpSpeedFactor = 1;
-    //public float smoothTime = 0.3f;
 
     [HideInInspector]
     public bool isStopMoving = false;
@@ -18,7 +17,7 @@ public class CameraController : MonoBehaviour
     private Transform playerTransform;
     private float speedGoUp;
     private float speedGoDown;
-    private float followDownspeedFactor = 10;
+    private float followDownspeedFactor = 2;
     private float initialPlayerDistance;
     private float currentShakeDuration;
     private Vector3 originalShakePos;
@@ -35,21 +34,21 @@ public class CameraController : MonoBehaviour
         if (isShaking)
             return;
 
+        //if (!playerController.hasStarted)
+        //    return;
+
         if (isStopMoving)
             return;
 
-        // プレイヤーの位置を取得
-        Vector3 playerPosition = playerTransform.position;
-
         // プレイヤーとカメラの距離を計算
-        float distance = transform.position.y - playerPosition.y;
+        float distance = transform.position.y - playerTransform.transform.position.y;
 
         // カメラの上昇と下降の速度を計算
         speedGoUp = (initialPlayerDistance - distance) * followUpSpeedFactor;
         speedGoDown = Mathf.Min(-3f, (initialPlayerDistance - distance) * followDownspeedFactor);
 
         // プレイヤーの位置に基づいてカメラを移動
-        if (distance < initialPlayerDistance - 1f)
+        if (distance < initialPlayerDistance - 1f && !playerController.hitObstacle && !playerController.playerFallDown)
         {
             // 上昇
             transform.position += new Vector3(0, speedGoUp * Time.deltaTime, 0);
@@ -58,6 +57,19 @@ public class CameraController : MonoBehaviour
         {
             // 下降
             transform.position += new Vector3(0, speedGoDown * Time.deltaTime, 0);
+        }
+        else if (playerController.hasHitGround)
+        {
+            // Keep going down until the character is reveal
+            transform.position += new Vector3(0, speedGoDown * Time.deltaTime, 0);
+        }
+
+        float finalDistance = transform.position.y - playerTransform.transform.position.y;
+        bool shouldStop = playerController.hasHitGround && GameManager.Instance.GameState == GameState.GameOver && (finalDistance < initialPlayerDistance - 1f);
+
+        if (shouldStop && !isStopMoving)
+        {
+            isStopMoving = true;
         }
     }
 
@@ -73,8 +85,8 @@ public class CameraController : MonoBehaviour
             yield break;
 
         isShaking = true;
-        Vector3 originalShakePos = transform.position;
-        float currentShakeDuration = shakeDuration;
+        originalShakePos = transform.position;
+        currentShakeDuration = shakeDuration;
 
         while (currentShakeDuration > 0)
         {
@@ -84,6 +96,7 @@ public class CameraController : MonoBehaviour
         }
 
         transform.position = originalShakePos;
+
         isShaking = false;
     }
 }
