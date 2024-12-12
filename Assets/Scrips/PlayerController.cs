@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player Fall Ground");
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.GameState == GameState.Playing)
         {
             Flap();
         }

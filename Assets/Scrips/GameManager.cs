@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using SgLib;
 
 public enum GameState
 {
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
     {
         GameState = GameState.Prepare;
         Application.targetFrameRate = targetFrameRate;
-        //ScoreManager.Instance.Reset();
+        ScoreManager.Instance.Reset();
 
         RandomObstacleType();//Random obstacle's type
 
@@ -219,39 +220,39 @@ public class GameManager : MonoBehaviour
             //Player jump over an obstacle -> add score, create next obstacle
             if (parentPlayer.transform.position.y > listObstacle[listIndex].transform.position.y)
             {
-                //ScoreManager.Instance.AddScore(1);
+                ScoreManager.Instance.AddScore(1);
                 hasCheckedScore = false;
                 CreateObstacle();
                 listIndex++;
             }
 
             //Destroy obstacle and move the ground up
-            //if (ScoreManager.Instance.Score > obstacleCounter)
-            //{
-            //    theGround.transform.position = listObstacle[listDestroyIndex].transform.position;
-            //    Destroy(listObstacle[listDestroyIndex]);
-            //    listDestroyIndex++;
-            //    obstacleCounter++;
-            //}
+            if (ScoreManager.Instance.Score > obstacleCounter)
+            {
+                Ground.transform.position = listObstacle[listDestroyIndex].transform.position;
+                Destroy(listObstacle[listDestroyIndex]);
+                listDestroyIndex++;
+                obstacleCounter++;
+            }
 
 
-            //if (ScoreManager.Instance.Score != 0 && ScoreManager.Instance.Score % scoreToUpdateValue == 0 && !hasCheckedScore)
-            //{
-            //    hasCheckedScore = true;
+            if (ScoreManager.Instance.Score != 0 && ScoreManager.Instance.Score % scoreToUpdateValue == 0 && !hasCheckedScore)
+            {
+                hasCheckedScore = true;
 
-            //    minObstacleSpeedFactor -= decreaseObstacleSpeedValue;
-            //    maxObstacleSpeedFactor -= decreaseObstacleSpeedValue;
+                minObstacleSpeedFactor -= decreaseObstacleSpeedValue;
+                maxObstacleSpeedFactor -= decreaseObstacleSpeedValue;
 
-            //    if (minObstacleSpeedFactor <= minimumMinObstacleSpeedFactor)
-            //    {
-            //        minObstacleSpeedFactor = minimumMinObstacleSpeedFactor;
-            //    }
+                if (minObstacleSpeedFactor <= minimumMinObstacleSpeedFactor)
+                {
+                    minObstacleSpeedFactor = minimumMinObstacleSpeedFactor;
+                }
 
-            //    if (maxObstacleSpeedFactor <= minimumMaxObstacleSpeedFactor)
-            //    {
-            //        maxObstacleSpeedFactor = minimumMaxObstacleSpeedFactor;
-            //    }
-            //}
+                if (maxObstacleSpeedFactor <= minimumMaxObstacleSpeedFactor)
+                {
+                    maxObstacleSpeedFactor = minimumMaxObstacleSpeedFactor;
+                }
+            }
 
 
             yield return null;
