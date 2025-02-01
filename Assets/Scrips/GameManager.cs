@@ -144,9 +144,9 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = targetFrameRate;
         ScoreManager.Instance.Reset();
 
-        RandomObstacleType();//Random obstacle's type
+        // ランダムなオブジェクトを配置
+        RandomObstacleType();
 
-        //Create the first obstacle and add to list
         Vector3 firstObstaclePos = Ground.transform.position + new Vector3(0, 13f, 0);
         currentObstacle = Instantiate(obstaclePrefab, firstObstaclePos, Quaternion.identity) as GameObject;
         currentObstacle.GetComponent<ObstacleController>().fluctuationRange = Random.Range(minObstacleFluctuationRange, maxObstacleFluctuationRange);
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
 
 
         addedPosition = new Vector3(0, space, 0);
-        //Create position for next obstacle 
+        // 次の障害物を生成
         obstaclePosition = currentObstacle.transform.position + addedPosition;
 
         for (int i = 0; i < initialObstacle; i++)
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
     {
         while (GameState != GameState.GameOver)
         {
-            //Player jump over an obstacle -> add score, create next obstacle
+            // 障害物のスコアの加算
             if (parentPlayer.transform.position.y > listObstacle[listIndex].transform.position.y)
             {
                 ScoreManager.Instance.AddScore(1);
@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour
                 listIndex++;
             }
 
-            //Destroy obstacle and move the ground up
+            // 一定の障害物を通過したら障害物を消去
             if (ScoreManager.Instance.Score > obstacleCounter)
             {
                 Ground.transform.position = listObstacle[listDestroyIndex].transform.position;
