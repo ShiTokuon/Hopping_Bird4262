@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: a7988ccb3c7194740b56324adedd466e
+<<<<<<< HEAD
+guid: b0dfadb2d0928d744aef02ffdff81e77
+=======
+guid: e572d623750fc7744ba10a46eb4552c9
+>>>>>>> プレイヤーのモデル変更
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
