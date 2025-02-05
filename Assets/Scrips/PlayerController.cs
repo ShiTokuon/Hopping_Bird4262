@@ -118,14 +118,16 @@ public class PlayerController : MonoBehaviour
             if (!hitObstacle)
             {
                 hitObstacle = true;
-
                 Die();
+                cameraController.ShakeCamera();
                 rigid.velocity = new Vector3(0, 0, 0);
                 transform.position = new Vector3(0, transform.position.y, 0);
 
                 //Create particle base on obstacle
                 rigid.isKinematic = true;
                 StartCoroutine(WaitToDisableKinematic());
+
+                Destroy(other.gameObject);
 
                 //SoundManager.Instance.PlaySound(SoundManager.Instance.hit);
             }

@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
 
     // UIマネージャー
     [Header("Gameplay Preferences")]
+    public UIManager uIManager;
+    public GameObject EnemyPrefab;
     public GameObject parentPlayer;
     public GameObject Ground;
     [Header("Obstacles")]
@@ -89,10 +91,6 @@ public class GameManager : MonoBehaviour
     // 最小速度の下限
     public float minimumMaxObstacleSpeedFactor = 0.7f;
 
-    // 最大速度の下限
-    [Range(0f, 1f)]
-    public float goldFrequecy;
-
     private List<GameObject> listObstacle = new List<GameObject>();
     private GameObject obstaclePrefab;
     private GameObject currentObstacle;
@@ -101,6 +99,10 @@ public class GameManager : MonoBehaviour
     private bool hasCheckedScore = false;
     private int listIndex = 0;
     private int listDestroyIndex = 0;
+
+    // 敵の出現確率パラメータ
+    [Range(0f, 1f)]
+    public float EnemyFrequecy;
 
     void OnEnable()
     {
@@ -205,7 +207,7 @@ public class GameManager : MonoBehaviour
         currentObstacle.GetComponent<ObstacleController>().movingSpeed = Random.Range(minObstacleSpeedFactor, maxObstacleSpeedFactor);
         currentObstacle.transform.parent = transform;
 
-        CreateGold();
+        CreateEnemy();
 
         listObstacle.Add(currentObstacle);
 
@@ -259,18 +261,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Create gold
-    void CreateGold()
+    void CreateEnemy()
     {
-        float goldProbability = Random.Range(0f, 1f);
-        if (goldProbability <= goldFrequecy)
+        float EnemyProbability = Random.Range(0f, 1f);
+        if (EnemyProbability <= EnemyFrequecy)
         {
-            Vector3 goldPosition = currentObstacle.transform.position + new Vector3(0, space / 2f, 0);
+            Vector3 EnemyPosition = currentObstacle.transform.position + new Vector3(0, space / 2f, 0);
+            GameObject currentEnemy = Instantiate(EnemyPrefab, EnemyPosition, Quaternion.Euler(0, 0, 45)) as GameObject;
 
-            float goldFluctuationRange = Random.Range(minObstacleFluctuationRange, maxObstacleFluctuationRange);
+            float EnemyFluctuationRange = Random.Range(minObstacleFluctuationRange, maxObstacleFluctuationRange);
 
-            //currentGold.GetComponent<GoldController>().fluctuationRange = goldFluctuationRange;
-            //currentGold.GetComponent<GoldController>().movingSpeed = Random.Range(minObstacleSpeedFactor * 2, maxObstacleSpeedFactor * 2);
+            currentEnemy.GetComponent<EnemyController>().fluctuationRange = EnemyFluctuationRange;
+            currentEnemy.GetComponent<EnemyController>().movingSpeed = Random.Range(minObstacleSpeedFactor * 2, maxObstacleSpeedFactor * 2);
+
+            int indexPosition = Random.Range(0, 2);
+            if (indexPosition == 0)
+            {
+                currentEnemy.transform.position += new Vector3(-EnemyFluctuationRange, 0, 0);
+            }
+            else
+            {
+                currentEnemy.transform.position += new Vector3(EnemyFluctuationRange, 0, 0);
+            }
+            currentEnemy.transform.parent = currentObstacle.transform;
         }
     }
 
