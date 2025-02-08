@@ -284,16 +284,6 @@ public class UIManager : MonoBehaviour
         #endif
     }
 
-    public void ShowShareUI()
-    {
-
-    }
-
-    public void HideShareUI()
-    {
-        
-    }
-
     public void ShowCharacterSelectionScene()
     {
         SceneManager.LoadScene("CharacterSelection");
@@ -309,24 +299,9 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.ToggleMusic();
     }
 
-    public void RateApp()
-    {
-       
-    }
-
-    public void OpenTwitterPage()
-    {
-        
-    }
-
-    public void OpenFacebookPage()
-    {
-        
-    }
-
     public void ButtonClickSound()
     {
-       
+        //Utilities.ButtonClickSound();
     }
 
     void UpdateMuteButtons()

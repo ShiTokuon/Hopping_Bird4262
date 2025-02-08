@@ -78,19 +78,18 @@ public class PlayerController : MonoBehaviour
             Flap();
         }
 
-        // Fix position
         transform.position = new Vector3(0, transform.position.y, 0);
     }
 
     void Flap()
     {
-        //SoundManager.Instance.PlaySound(SoundManager.Instance.flap);
-        StartCoroutine(AddVelocityForPlayer()); //add velocity for player
+        SoundManager.Instance.PlaySound(SoundManager.Instance.flap);
+        StartCoroutine(AddVelocityForPlayer());
 
         if (!isFinishRotate)
         {
             isFinishRotate = true;
-            StartCoroutine(RotateParentPlayer()); //rotate player
+            StartCoroutine(RotateParentPlayer());
         }
     }
 
@@ -103,7 +102,6 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-        // Fire event
         if (PlayerDied != null)
         {
             PlayerDied();
@@ -114,7 +112,7 @@ public class PlayerController : MonoBehaviour
     {
         // è·äQï®ÇÃìñÇΩÇËîªíË
 
-        if (other.tag == "Enemy") //Hit gold
+        if (other.tag == "Enemy")
             if (!hitObstacle)
             {
                 hitObstacle = true;
@@ -123,16 +121,15 @@ public class PlayerController : MonoBehaviour
                 rigid.velocity = new Vector3(0, 0, 0);
                 transform.position = new Vector3(0, transform.position.y, 0);
 
-                //Create particle base on obstacle
                 rigid.isKinematic = true;
                 StartCoroutine(WaitToDisableKinematic());
 
                 Destroy(other.gameObject);
 
-                //SoundManager.Instance.PlaySound(SoundManager.Instance.hit);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.hit);
             }
 
-        if (other.tag == "NormalObstacle") //hit obstacle
+        if (other.tag == "NormalObstacle")
         {
             if (!hitObstacle)
             {
@@ -142,9 +139,10 @@ public class PlayerController : MonoBehaviour
                 rigid.velocity = new Vector3(0, 0, 0);
                 transform.position = new Vector3(0, transform.position.y, 0);
 
-                //Create particle base on obstacle
                 rigid.isKinematic = true;
                 StartCoroutine(WaitToDisableKinematic());
+
+                SoundManager.Instance.PlaySound(SoundManager.Instance.hit);
             }
         }
     }
@@ -153,7 +151,9 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.GameState == GameState.GameOver && col.collider.tag.Equals("Ground") && !hasHitGround)
         {
             hasHitGround = true;
-            //SoundManager.Instance.PlaySound(SoundManager.Instance.hit);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.hit);
+            if (SoundManager.Instance.background != null)
+                SoundManager.Instance.PlayMusic(SoundManager.Instance.gameOver);
         }
     }
 
@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
     {
         turn = turn * (-1);
 
-        float firstCurrentAngle = transform.eulerAngles.y; //Y rotation = 0
+        float firstCurrentAngle = transform.eulerAngles.y;
         while (firstCurrentAngle < rotateAngle && GameManager.Instance.GameState == GameState.Playing) //Rotate 
         {
             float rotateAmount = 200 * Time.deltaTime;

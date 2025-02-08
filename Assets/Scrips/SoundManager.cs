@@ -21,6 +21,7 @@ namespace SgLib
         public int maxSimultaneousSounds = 7;
 
         // List of sounds used in this game
+        public Sound Title;
         public Sound background;
         public Sound button;
         public Sound coin;

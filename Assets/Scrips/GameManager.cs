@@ -167,14 +167,19 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(GenerateObstacle());
+
+        if (SoundManager.Instance.background != null)
+            SoundManager.Instance.PlayMusic(SoundManager.Instance.Title);
     }
 
     public void StartGame()
     {
         GameState = GameState.Playing;
 
-        //if (SoundManager.Instance.background != null)
-        //    SoundManager.Instance.PlayMusic(SoundManager.Instance.background);
+        if (SoundManager.Instance.background != null)
+            SoundManager.Instance.StopMusic();
+        if (SoundManager.Instance.background != null)
+            SoundManager.Instance.PlayMusic(SoundManager.Instance.background);
     }
 
     public void GameOver()
@@ -182,8 +187,8 @@ public class GameManager : MonoBehaviour
         GameState = GameState.GameOver;
         GameCount++;
 
-        //if (SoundManager.Instance.background != null)
-        //    SoundManager.Instance.StopMusic();
+        if (SoundManager.Instance.background != null)
+            SoundManager.Instance.StopMusic();
     }
 
     public void RestartGame(float delay = 0)

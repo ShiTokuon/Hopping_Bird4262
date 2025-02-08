@@ -2668,6 +2668,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: hit.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1450ea81945bf6d41850c6b889c23493, type: 3}
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: flap.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bdd9a93b66e26347a2e2f6bdd81c58a, type: 3}
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: tick.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 70302ec0b09ad314b9c0d04add0e9bea, type: 3}
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: Title.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6dc292e5778ae64489821b03acfe1e52, type: 3}
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: button.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 70302ec0b09ad314b9c0d04add0e9bea, type: 3}
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: gameOver.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: bb3d63c537bb00446a7bebbc10a9310b, type: 3}
+    - target: {fileID: 2289079984154456121, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: background.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c5bb12ea16ffb644a4019f57e19b997, type: 3}
     - target: {fileID: 4090183311418244283, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2715,6 +2743,10 @@ PrefabInstance:
     - target: {fileID: 5419025593422813080, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
       propertyPath: m_Name
       value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7347287433452822159, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0bc0cc9a5c7bd4ab01442f8325eafb, type: 3}
@@ -3235,7 +3267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetFrameRate: 60
   uIManager: {fileID: 1068827944}
-  EnemyPrefab: {fileID: 3613946471835364216, guid: e2f8d310b17cccc4cb2459ae5f5ab5c8, type: 3}
+  EnemyPrefab: {fileID: 7169099226673414473, guid: 18554b9ae78e1c948b1fcc568a5bdd90, type: 3}
   parentPlayer: {fileID: 1158201864}
   Ground: {fileID: 796349281}
   normalObstacle: {fileID: 8016998715278008947, guid: 5975dae7d24d17b4aba2842d0c34bac9, type: 3}
@@ -3250,7 +3282,7 @@ MonoBehaviour:
   maxObstacleSpeedFactor: 2
   minimumMinObstacleSpeedFactor: 0.4
   minimumMaxObstacleSpeedFactor: 0.7
-  EnemyFrequecy: 1
+  EnemyFrequecy: 0.85
 --- !u!1 &1510747422
 GameObject:
   m_ObjectHideFlags: 0
